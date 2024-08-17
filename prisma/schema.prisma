@@ -13,6 +13,22 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Element{
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  name String?
+  typeElement String?
+  isFavourite Boolean
+  urlWebsite String?
+  username String?
+  password String?
+  notes String?
+  userId String? @db.ObjectId
+  directory String?
+  user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 model User{
   id String @id @default(auto()) @map("_id") @db.ObjectId
   name String?
@@ -24,23 +40,5 @@ model User{
   hashedPassword String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
   elements Element[]
-}
-
-model Element {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  name String?
-  typeElement String?
-  isFavourite Boolean
-  urlWebsite String?
-  username String?
-  password String?
-  notes String?
-  userId String? @db.ObjectId
-  directory String?
-
-  user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 }

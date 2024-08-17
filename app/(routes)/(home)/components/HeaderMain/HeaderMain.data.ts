@@ -5,7 +5,7 @@ export const dataHeaderMain:
 DataHeaderMainItemProps[] = [
     {
         icon: KeyRound,
-        text: "Elemento",
+        text: "Contraseña",
         typeElement: "password"
     },
     {

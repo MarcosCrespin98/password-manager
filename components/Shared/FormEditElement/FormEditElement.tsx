@@ -1,4 +1,5 @@
 "use client"
+import { FormEditElementProps } from "./FormEditElement.types";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { useState } from "react"
@@ -16,51 +17,41 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { formSchema } from "./FormAddElement.form"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Copy, Earth, Eye, Shuffle } from "lucide-react"
 import { Textarea } from "@/components/ui/textarea"
 import { toast } from "@/components/ui/use-toast"
 import { useRouter } from "next/navigation"
-import { FormAddElementProps } from "./FormAddElement.types"
+import { formSchema } from "./FormEditElement.form";
 
-export function FormAddElement(props: FormAddElementProps){
-    const { userId, closeDialog } = props
-    const [showPassword, setShowPassword] = useState(false)
+export function FormEditElement(props: FormEditElementProps) {
+    const { dataElement } = props
     const router = useRouter()
+    const [showPassword, setShowPassword] = useState(false)
+
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            typeElement: "",
-            isFavourite: false,
-            name: "",
-            directory: "",
-            username: "",
-            password: "",
-            urlWebsite: "",
-            notes: "",
-            userId: userId,
+            typeElement: dataElement?.typeElement || "",
+            isFavourite: dataElement?.isFavourite,
+            name: dataElement?.name || "",
+            directory: dataElement?.directory || "",
+            username: dataElement?.username || "",
+            password: dataElement?.password || "",
+            urlWebsite: dataElement?.urlWebsite || "",
+            notes: dataElement?.notes || "",
+            userId: dataElement?.userId || "",
         },
     })
+
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try{
-            await axios.post("/api/items", values)
+            await axios.patch(`/api/items/${dataElement.id}`, values)
             toast({
-                title: "Item Creado",
+                title: "Item actualizado",
             })
-            form.reset({
-                typeElement: "",
-                isFavourite: false,
-                name: "",
-                directory: "",
-                username: "",
-                password: "",
-                urlWebsite: "",
-                notes: "",
-            })
-            closeDialog()
-            router.refresh()
+            router.push('/')
         }catch(e){
             toast({
                 title: "Algo no es correcto",
@@ -68,6 +59,7 @@ export function FormAddElement(props: FormAddElementProps){
             })
         }
     }
+
     const generateRandomPassword = () => {
         const password = generatePassword()
         form.setValue("password", password)
@@ -76,9 +68,8 @@ export function FormAddElement(props: FormAddElementProps){
         form.setValue("urlWebsite", window.location.href)
     }
 
-    return(
-        <div>
-            <Form {...form}>
+    return (
+        <Form {...form}>
                 <form 
                     onSubmit={form.handleSubmit(onSubmit)} 
                     className=" md:grid-cols-2 gap-y-2 space-x-4 grid"
@@ -227,7 +218,11 @@ export function FormAddElement(props: FormAddElementProps){
                             <FormItem>
                                 <FormLabel className="flex justify-between">
                                     Contraseña
-                                    <Shuffle className="cursor-pointer" size={15} onClick={generateRandomPassword} />
+                                    <Shuffle 
+                                        className="cursor-pointer" 
+                                        size={15} 
+                                        onClick={generateRandomPassword} 
+                                    />
                                 </FormLabel>
                                 <FormControl>
                                     <div className="relative">
@@ -265,6 +260,5 @@ export function FormAddElement(props: FormAddElementProps){
                     <Button type="submit">Guardar</Button>
                 </form>
             </Form>
-        </div>
     )
 }
