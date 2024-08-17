@@ -5,7 +5,7 @@ import { useState } from "react"
 import { set, z } from "zod"
 import { copyClipBoard } from "@/lib/copyClipBoard"
 import { generatePassword } from "@/lib/generatePassword"
-
+import axios from "axios"
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -22,9 +22,12 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox"
 import { Copy, Earth, Eye, Shuffle } from "lucide-react"
 import { Textarea } from "@/components/ui/textarea"
+import { toast } from "@/components/ui/use-toast"
+import { useRouter } from "next/navigation"
 
 export function FormAddElement(){
     const [showPassword, setShowPassword] = useState(false)
+    const router = useRouter()
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -39,8 +42,30 @@ export function FormAddElement(){
             UserId: "31231312",
         },
     })
-    const onSubmit = (values: z.infer<typeof formSchema>) => {
-        console.log(values)
+    const onSubmit = async (values: z.infer<typeof formSchema>) => {
+        try{
+            await axios.post("/api/items", values)
+            toast({
+                title: "Item Creado",
+            })
+            form.reset({
+                typeElement: "",
+                isFavourite: false,
+                name: "",
+                directory: "",
+                username: "",
+                password: "",
+                urlWebsite: "",
+                notes: "",
+                UserId: "31231312",
+            })
+            router.refresh()
+        }catch(e){
+            toast({
+                title: "Algo no es correcto",
+                variant: "destructive",
+            })
+        }
     }
     const generateRandomPassword = () => {
         const password = generatePassword()
