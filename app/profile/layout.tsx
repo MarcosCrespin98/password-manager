@@ -7,7 +7,7 @@ export default function LayoutProfile({
   }>) {
     return (
         <div>
-            <h1>THIS IS THE LAYOUT</h1>
+            <h1>Aqui Va el perfil guaton culiao</h1>
             {children}
         </div>
     );

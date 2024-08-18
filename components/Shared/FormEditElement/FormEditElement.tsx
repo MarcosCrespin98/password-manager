@@ -97,9 +97,6 @@ export function FormEditElement(props: FormEditElementProps) {
                                     <SelectItem value="Tarjeta">
                                         Tarjeta
                                     </SelectItem>
-                                    <SelectItem value="Identidad">
-                                        Identidad
-                                    </SelectItem>
                                 </SelectContent>
                             </Select>
                             <FormMessage />

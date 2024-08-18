@@ -33,17 +33,11 @@ export const dataSidebarConfiguration = [{
             icon: UserPen,
             premium: false
         },
-        {
+        /* {
             title: 'Security',
             href: '/#',
             icon: Lock,
             premium: true
-        },
-        {
-            title: 'Suscription',
-            href: '#',
-            icon: Landmark,
-            premium: true
-        }
+        }, */
     ]
 }]

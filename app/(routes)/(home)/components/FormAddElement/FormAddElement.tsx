@@ -100,14 +100,11 @@ export function FormAddElement(props: FormAddElementProps){
                                     </SelectTrigger>
                                 </FormControl>
                                 <SelectContent>
-                                    <SelectItem value="Inicio de Sesion">
+                                    <SelectItem value="Inicio de sesion">
                                         Inicio de Sesion
                                     </SelectItem>
                                     <SelectItem value="Tarjeta">
                                         Tarjeta
-                                    </SelectItem>
-                                    <SelectItem value="Identidad">
-                                        Identidad
                                     </SelectItem>
                                 </SelectContent>
                             </Select>
