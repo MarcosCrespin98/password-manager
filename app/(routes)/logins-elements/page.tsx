@@ -30,9 +30,6 @@ export default async function LoginsElementsPage() {
         redirect("/")
     }
 
-    console.log(user ,' ñññ user ')
-
-
     return (
         <div>
             <h1 className="text-xl md:text-3xl font-semibold">Lista de Pagina de Logins</h1>

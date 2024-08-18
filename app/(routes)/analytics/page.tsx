@@ -32,10 +32,6 @@ export default async function AnalyticsPage() {
 
   const { unique ,repeated } = countPasswords(user.elements)
 
-  console.log(unique ,' ñññ unique ')
-  console.log(repeated ,' ñññ repeated ')
-
-
   const { pageNameCounts, totalPages } = countPages(user.elements)
 
   return (
