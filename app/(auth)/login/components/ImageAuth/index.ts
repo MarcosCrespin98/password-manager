@@ -1,1 +1,1 @@
-import * from './ImageAuth';
+export * from './ImageAuth'

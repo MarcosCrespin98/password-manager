@@ -1,1 +1,1 @@
-import * from './TabsForms';
+export * from './TabsForms'
