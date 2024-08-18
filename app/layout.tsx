@@ -10,6 +10,7 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: "Password Manager",
   description: "Password Manager",
+  manifest: "/manifest.json/",
 };
 
 export default function RootLayout({
