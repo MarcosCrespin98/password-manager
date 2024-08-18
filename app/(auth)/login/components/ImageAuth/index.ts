@@ -1,1 +1,1 @@
-export * from './ImageAuth'
+export * from "./ImageAuth";
