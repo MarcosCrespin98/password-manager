@@ -19,7 +19,7 @@ export function SidebarMobile(){
                     <Menu size={24}/>
                 </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="bg-blue-800 text-white">
+            <SheetContent side="left" className="bg-green-800 text-white">
                 <SheetHeader className="text-left mb-5">
                 <SheetTitle className="text-white">PasswordManager</SheetTitle>
                 <SheetDescription className="text-slate-100">
